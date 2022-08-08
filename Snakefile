@@ -118,5 +118,5 @@ rule download_data:
     shell:
         """
         wget https://ars.els-cdn.com/content/image/1-s2.0-S009286741630215X-mmc1.xls -O {prefix}download/1-s2.0-S009286741630215X-mmc1.xls
-        wget https://github.com/BHKLAB-Pachyderm/ICB_Hugo-data/raw/main/Hugo_kallisto.zip -O {prefix}download/Hugo_kallisto.zip
+        wget -O {prefix}download/Hugo_kallisto.zip "https://zenodo.org/record/6968367/files/Hugo_kallisto.zip?download=1"
         """ 

@@ -1,6 +1,7 @@
 library(data.table)
 library(readxl) 
 library(stringr)
+library(tximport)
 
 args <- commandArgs(trailingOnly = TRUE)
 work_dir <- args[1]
@@ -20,4 +21,9 @@ write.table(clin, file.path(work_dir, "CLIN.txt"), sep="\t" , col.names=TRUE, ro
 # EXPR_gene_tpm.tsv, EXPR_gene_counts.tsv, EXPR_tx_tpm.tsv, EXPR_tx_counts.tsv
 source('https://raw.githubusercontent.com/BHKLAB-Pachyderm/ICB_Common/main/code/process_kallisto_output.R')
 load(file.path(annot_dir, "Gencode.v40.annotation.RData"))
-process_kallisto_output(work_dir, 'Hugo_kallisto.zip', tx2gene)
+
+dir.create(file.path(work_dir, 'rnaseq'))
+unzip(file.path(work_dir, 'Hugo_kallisto.zip'), exdir=file.path(work_dir, 'rnaseq'))
+unlink(file.path(work_dir, 'rnaseq', '__MACOSX'), recursive = TRUE)
+
+process_kallisto_output(work_dir, tx2gene) 
